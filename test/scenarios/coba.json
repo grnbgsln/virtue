@@ -1,0 +1,11 @@
+"scripts": {
+    "test": "jest --json --outputFile=jest_html_reporters.json",
+    "test:exclude": "jest --config=jest.configExclude.js --json --outputFile=jest_html_reporters.json",
+    "test:cms_adminByAdmin": "jest .\\__tests__\\cms_adminByAdmin --json --outputFile=jest_html_reporters.json",
+    "test:cms_adminBySuperAdmin": "jest .\\__tests__\\cms_adminBySuperAdmin --json --outputFile=jest_html_reporters.json",
+    "test:cms_adminBySupportRole": "jest .\\__tests__\\cms_adminBySupportRole --json --outputFile=jest_html_reporters.json",
+    "test:cms_bulk_user": "jest .\\__tests__\\cms_bulk_user --json --outputFile=jest_html_reporters.json",
+    "test:portal": "jest .\\__tests__\\portal_downloadPDF .\\__tests__\\portal_getDeviceAppRole .\\__tests__\\portal_getDownloadLink .\\__tests__\\portal_otp .\\__tests__\\portal_resendDownloadLink .\\__tests__\\portal_resetPassword .\\__tests__\\portal_selfRegister --json --outputFile=jest_html_reporters.json",
+    "test:cms": "jest .\\__tests__\\cms_addAplikasi .\\__tests__\\cms_addOrganisasi .\\__tests__\\cms_addRole .\\__tests__\\cms_addUser .\\__tests__\\cms_appClientCredentials .\\__tests__\\cms_daftarAplikasi .\\__tests__\\cms_daftarOrganisasi .\\__tests__\\cms_daftarRole .\\__tests__\\cms_daftarUser .\\__tests__\\cms_deleteAplikasi .\\__tests__\\cms_deleteRole .\\__tests__\\cms_deleteUser .\\__tests__\\cms_editAplikasi .\\__tests__\\cms_editOrganisasi .\\__tests__\\cms_editRole .\\__tests__\\cms_editUser .\\__tests__\\cms_otp .\\__tests__\\cms_profile .\\__tests__\\cms_roleApp --json --outputFile=jest_html_reporters.json",
+    "test:smoke": "jest .\\__tests__\\_changePassword .\\__tests__\\_changePhoneNumber .\\__tests__\\_tanyaMeta .\\__tests__\\_login .\\__tests__\\_logout .\\__tests__\\portal_resetPassword .\\__tests__\\mob_resetPassword .\\__tests__\\portal_otp .\\__tests__\\cms_otp .\\__tests__\\mob_otp .\\__tests__\\portal_getDownloadLink .\\__tests__\\portal_resendDownloadLink .\\__tests__\\mob_downloadMetaLatest --json --outputFile=jest_html_reporters.json"
+  },

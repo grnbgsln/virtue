@@ -1,0 +1,130 @@
+## This schedule running by UTC, please adjust the time by +7
+## For example; you want running every 00:00 WIB, please set to "0 18  * * *"
+schedules:
+- cron: "0 18 * * *"
+  displayName: Every Midnight
+  branches:
+    include:
+    - master
+  always: true
+
+resources:
+  repositories:
+    - repository: devsecops.pipeline
+      type: git
+      name: VirtualJobFair/devsecops.pipeline
+      ref: main
+    - repository: wdio-deskweb-astravirtue
+      name: VirtualJobFair/wdio-deskweb-astravirtue
+      type: git
+      ref: master
+
+parameters:
+  - name: appRepository
+    values:
+      - wdio-deskweb-astravirtue
+  - name: engineRepository
+    values:
+      - devsecops.pipeline
+      
+  - name: groupSuite01
+    type: object
+    default:
+    - suiteName: 'all'
+      parallel: ''
+      directorySuite: ''
+    
+    
+
+  # - name: groupSuite02
+  #   type: object
+  #   default:
+  #   - suiteName: 'portal'
+  #     parallel: '10'
+  #     directorySuite: 'portal_aplikasiPage'
+  #   - suiteName: 'portal'
+  #     parallel: '10'
+  #     directorySuite: 'portal_landingPage'
+
+  # - name: groupSuite03
+  #   type: object
+  #   default:
+  #   - suiteName: 'portal'
+  #     parallel: '10'
+  #     directorySuite: 'portal_loginPage'
+  #   - suiteName: 'portal'
+  #     parallel: '10'
+  #     directorySuite: 'portal_logout'
+
+  # - name: groupSuite04
+  #   type: object
+  #   default:
+  #   - suiteName: 'portal'
+  #     parallel: '10'
+  #     directorySuite: 'portal_onBoarding'
+  #   - suiteName: 'portal'
+  #     parallel: '10'
+  #     directorySuite: 'portal_profile'
+
+  # - name: groupSuite05
+  #   type: object
+  #   default:
+  #   - suiteName: 'portal'
+  #     parallel: '10'
+  #     directorySuite: 'portal_tanyaMeta'
+  #   - suiteName: 'portal'
+  #     parallel: '10'
+  #     directorySuite: 'portal_termofusePrivacypolicy'
+
+stages:
+    - stage: groupSuite01
+      displayName: Deploy groupSuite01
+      jobs:
+      - template: SQA/AT-Web-VirtualJobFair.yml@devsecops.pipeline
+        parameters:
+          appRepository: ${{ parameters.appRepository }}
+          engineRepository: ${{ parameters.engineRepository }}
+          groupSuite: ${{ parameters.groupSuite01 }}          
+        
+    # - stage: groupSuite02
+    #   displayName: Deploy groupSuite02
+    #   dependsOn: []
+    #   jobs:
+    #   - template: SQA/AT-WebDesktop-Meta.yml@devsecops.pipeline
+    #     parameters:
+    #       appRepository: ${{ parameters.appRepository }}
+    #       engineRepository: ${{ parameters.engineRepository }}
+    #       groupSuite: ${{ parameters.groupSuite02 }}
+      
+    # - stage: groupSuite03
+    #   displayName: Deploy groupSuite03
+    #   dependsOn: []
+    #   jobs:
+    #   - template: SQA/AT-WebDesktop-Meta.yml@devsecops.pipeline
+    #     parameters:
+    #       appRepository: ${{ parameters.appRepository }}
+    #       engineRepository: ${{ parameters.engineRepository }}
+    #       groupSuite: ${{ parameters.groupSuite03 }}
+
+    # - stage: groupSuite04
+    #   displayName: Deploy groupSuite04
+    #   dependsOn: []
+    #   jobs:
+    #   - template: SQA/AT-WebDesktop-Meta.yml@devsecops.pipeline
+    #     parameters:
+    #       appRepository: ${{ parameters.appRepository }}
+    #       engineRepository: ${{ parameters.engineRepository }}
+    #       groupSuite: ${{ parameters.groupSuite04 }}
+
+    # - stage: groupSuite05
+    #   displayName: Deploy groupSuite05
+    #   dependsOn: []
+    #   jobs:
+    #   - template: SQA/AT-WebDesktop-Meta.yml@devsecops.pipeline
+    #     parameters:
+    #       appRepository: ${{ parameters.appRepository }}
+    #       engineRepository: ${{ parameters.engineRepository }}
+    #       groupSuite: ${{ parameters.groupSuite05 }}
+          
+
+         
