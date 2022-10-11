@@ -43,6 +43,7 @@ class LoginPage {
         await $('[class="profilePict"]').click()
         await $('//li[@class="menu-item d-flex"]//*[text()="Profil"]').click()
     }
+    
 }
 
 export default new LoginPage();

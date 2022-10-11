@@ -285,6 +285,11 @@ class Register {
     async setErrMsg(data){
         await $(`//*[text()="${data}"]`).waitForDisplayed()
     }
+
+    //button batal
+    async setButtonBatal(){
+        await $('//*[text()="Batal"]/../../button').click()
+    }
 }
 
 

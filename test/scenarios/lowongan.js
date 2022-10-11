@@ -2,6 +2,7 @@ import headerPage from "../pageobjects/header.page";
 import homePage from "../pageobjects/home.page";
 import loginPage from "../pageobjects/login.page";
 import lowonganPage from "../pageobjects/lowongan.page";
+import registerPage from "../pageobjects/register.page";
 
 describe('Cari Lowongan guest - Positive Case', () => {
     beforeEach(async () => {
@@ -68,6 +69,9 @@ describe('Cari Lowongan candidate - Positive Case', () => {
         await browser.pause(1000)
         await headerPage.clickCariLowongan();
     })
+    afterAll(async () => {
+        await loginPage.setLogout()
+    })
     it('As a candidates I can go to Cari Lowongan Page page', async () => {
         await lowonganPage.verifypageLowongan();
     });
@@ -113,9 +117,131 @@ describe('Cari Lowongan candidate - Positive Case', () => {
     })
 })
 
-describe(' @THRA-6835  @xsigerin2642 FLK and Platform 2', () => {
-    it('@THRA-6865 @xsigerin2642 As Candidate, I want to add expected salary field in register Virtue with character  ', async () => {
+
+describe('@THRA-5603  @xsigerin2642 Input internship data pada virtue', () => {
+    it('@THRA-5617 @xsigerin2642 Add internship data di edit profile virtue jika tidak isi mandatory ', async () => {
         await homePage.open();
+        await headerPage.clickMasuk()
+        await loginPage.setLogin('kandidatAT1@yopmail.com', '123');
+        await headerPage.verifyLoggedIn('reza tester');
+        await loginPage.setProfileclick()
+        await registerPage.verifySectionMagang()
+        await registerPage.setClickTambahMagang()
+        await registerPage.setNamaInstitusiMagang("PT SUka Cita")
+        await registerPage.setSubmitMagang()
+        let err = true
+        if (err) {
+            await registerPage.setErrMsg('Silakan melengkapi data Magang/PKL')
+            await lowonganPage.setOkModalInfomasi()
+            await registerPage.setButtonBatal()
+        }
+        await loginPage.setLogout()
+
+    })
+    it('@THRA-5616 @xsigerin2642 Add internship data di edit profile virtue jika pilih hingga saat ini ', async () => {
+        await homePage.open();
+        await headerPage.clickMasuk()
+        await loginPage.setLogin('kandidatAT1@yopmail.com', '123');
+        await headerPage.verifyLoggedIn('reza tester');
+        await loginPage.setProfileclick()
+        await registerPage.verifySectionMagang()
+        await registerPage.setClickTambahMagang()
+        const dataMagang = [
+            {
+                nama: "PT MULIA TBK",
+                fungsi: "Education",
+                industi: "Education",
+                mulai: "2022-01",
+                selesai: "Hingga saat ini",
+                desc: "Mantap"
+            }
+        ]
+        let count = 0
+        for (const obj of dataMagang) {
+            await registerPage.setNamaInstitusiMagang(obj.nama)
+            await registerPage.setFungsiMagang(obj.fungsi)
+            await registerPage.setIndustriMagang(obj.industi)
+            await registerPage.setStartDate(obj.mulai)
+            await registerPage.setEndaDate(obj.selesai)
+            await registerPage.setDeskripsiMagang(obj.desc)
+            await registerPage.setSubmitMagang()
+            count++
+            if (count < dataMagang.length) {
+                await registerPage.setClickTambahMagang()
+            }
+        }
+        await loginPage.setLogout()
+    })
+    it('@THRA-5614 @xsigerin2642 Add internship data di confirm profile virtue jika tidak isi mandatory', async () => {
+        await homePage.open();
+        await headerPage.clickMasuk()
+        await loginPage.setLogin('kandidatAT1@yopmail.com', '123');
+        await headerPage.verifyLoggedIn('reza tester');
+        let lamaran = lowonganPage.setKeranjangLowongan('Pilih Lowongan 1 dari 1000')
+        if (lamaran) {
+            await lowonganPage.setHapusLamaran("Pilih Lowongan 1 dari 1000", "579")
+            await lowonganPage.setOkModalInfomasi()
+        }
         await headerPage.clickCariLowongan();
+        await lowonganPage.verifypageLowongan()
+        await lowonganPage.setLamarCardVacancy("VACANCY VIRTUE JULI 2022")
+        await lowonganPage.setModalInfomasi("Sukses!")
+        await lowonganPage.setOkModalInfomasi()
+        await lowonganPage.setClickAjukanLamaran('Pilih Lowongan 1 dari 1000')
+        await registerPage.verifySectionMagang()
+        await registerPage.setClickTambahMagang()
+        await registerPage.setNamaInstitusiMagang("PT SUka Cita")
+        await registerPage.setSubmitMagang()
+        let err = true
+        if (err) {
+            await registerPage.setErrMsg('Silakan melengkapi data Magang/PKL')
+            await lowonganPage.setOkModalInfomasi()
+            await registerPage.setButtonBatal()
+        }
+        await loginPage.setLogout()
+    })
+    it('@THRA-5613 @xsigerin2642 Add internship data di confirm profile virtue jika tidak isi mandatory', async () => {
+        await homePage.open();
+        await headerPage.clickMasuk()
+        await loginPage.setLogin('kandidatAT1@yopmail.com', '123');
+        await headerPage.verifyLoggedIn('reza tester');
+        let lamaran = lowonganPage.setKeranjangLowongan('Pilih Lowongan 1 dari 1000')
+        if (lamaran) {
+            await lowonganPage.setHapusLamaran("Pilih Lowongan 1 dari 1000", "579")
+            await lowonganPage.setOkModalInfomasi()
+        }
+        await headerPage.clickCariLowongan();
+        await lowonganPage.verifypageLowongan()
+        await lowonganPage.setLamarCardVacancy("VACANCY VIRTUE JULI 2022")
+        await lowonganPage.setModalInfomasi("Sukses!")
+        await lowonganPage.setOkModalInfomasi()
+        await lowonganPage.setClickAjukanLamaran('Pilih Lowongan 1 dari 1000')
+        await registerPage.verifySectionMagang()
+        await registerPage.setClickTambahMagang()
+        const dataMagang = [
+            {
+                nama: "PT MULIA TBK",
+                fungsi: "Education",
+                industi: "Education",
+                mulai: "2022-01",
+                selesai: "Hingga saat ini",
+                desc: "Mantap"
+            }
+        ]
+        let count = 0
+        for (const obj of dataMagang) {
+            await registerPage.setNamaInstitusiMagang(obj.nama)
+            await registerPage.setFungsiMagang(obj.fungsi)
+            await registerPage.setIndustriMagang(obj.industi)
+            await registerPage.setStartDate(obj.mulai)
+            await registerPage.setEndaDate(obj.selesai)
+            await registerPage.setDeskripsiMagang(obj.desc)
+            await registerPage.setSubmitMagang()
+            count++
+            if (count < dataMagang.length) {
+                await registerPage.setClickTambahMagang()
+            }
+        }
+        await loginPage.setLogout()
     })
 })
