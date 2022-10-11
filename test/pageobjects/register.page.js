@@ -290,6 +290,7 @@ class Register {
     async setButtonBatal(){
         await $('//*[text()="Batal"]/../../button').click()
     }
+    
 }
 
 
