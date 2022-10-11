@@ -243,5 +243,6 @@ describe('@THRA-5603  @xsigerin2642 Input internship data pada virtue', () => {
             }
         }
         await loginPage.setLogout()
+        
     })
 })
